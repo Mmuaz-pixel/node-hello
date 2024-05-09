@@ -1,9 +1,13 @@
-FROM node:latest
-WORKDIR /app
+FROM node:20-alpine
 
-COPY . .
-EXPOSE 3000
+WORKDIR /app
 
 COPY package*.json ./
 
-ENTRYPOINT start npm
+RUN npm install --only=production
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
